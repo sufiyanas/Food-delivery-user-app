@@ -31,6 +31,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  google_nav_bar: ^5.0.6  
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -64,6 +65,7 @@ flutter:
     - Asset/Splash/
     - Asset/IntoScreenone/
     - Asset/signup/
+    - Asset/home/
     
   #   - images/a_dot_ham.jpeg
 

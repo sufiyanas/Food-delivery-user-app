@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
 import 'package:food_deliever_app/presentation/Home/home.dart';
+import 'package:food_deliever_app/presentation/mainscreen/mainscreen.dart';
 import 'package:food_deliever_app/presentation/widget/textformfield_widget.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -11,7 +12,6 @@ class LoginScreen extends StatelessWidget {
     final mheight = MediaQuery.of(context).size.height;
     final mwidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Column(
         children: [
           Container(
@@ -53,7 +53,7 @@ class LoginScreen extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => (const HomeScreen()),
+                      builder: (context) => (MianScreen()),
                     ));
               },
               child: Text("LogIn"))

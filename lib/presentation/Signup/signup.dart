@@ -12,7 +12,6 @@ class SignUpScreeen extends StatelessWidget {
     final mhight = MediaQuery.of(context).size.height;
     final mwidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Column(
         children: [
           Container(

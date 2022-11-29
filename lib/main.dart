@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_deliever_app/core/theme/custom_theme.dart';
 import 'package:food_deliever_app/presentation/Spalsh/introscreen/intoscreen_one.dart';
 import 'package:food_deliever_app/presentation/Spalsh/spalsh.dart';
 
@@ -12,9 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(fontFamily: 'BentonSans'),
+      theme: MyTheme.lightTheme,
       debugShowCheckedModeBanner: false,
-      darkTheme: ThemeData.dark(),
+      darkTheme: MyTheme.darkTheme,
+      themeMode: ThemeMode.system,
       home: IntroScreenOne(),
     );
   }

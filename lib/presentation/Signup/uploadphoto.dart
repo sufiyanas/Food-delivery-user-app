@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
+import 'package:food_deliever_app/presentation/Signup/setuplocation.dart';
 import 'package:food_deliever_app/presentation/widget/loginpagetitle.dart';
 
 class UploadPhotoScreen extends StatelessWidget {
@@ -15,15 +16,21 @@ class UploadPhotoScreen extends StatelessWidget {
           children: [
             LoginpageTitle(
                 appbartitle1: "Upload Your Photo ", appbartitle2: "Profile"),
-            containerfunction(mwidth),
+            containerfunction(
+                mwidth: mwidth,
+                imagetext: "From Gallary",
+                imageurl: "Asset/signup/Galleryicon.png"),
             khight10,
-            containerfunction(mwidth),
+            containerfunction(
+                mwidth: mwidth,
+                imagetext: "Take Photo",
+                imageurl: "Asset/signup/camera.png"),
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => (UploadPhotoScreen()),
+                        builder: (context) => (SetLocationScreen()),
                       ));
                 },
                 child: Text("Next"))
@@ -33,7 +40,8 @@ class UploadPhotoScreen extends StatelessWidget {
     );
   }
 
-  Container containerfunction(double mwidth) {
+  Container containerfunction(
+      {required mwidth, required imageurl, required imagetext}) {
     return Container(
       width: mwidth - 50,
       height: mwidth / 2,
@@ -42,10 +50,10 @@ class UploadPhotoScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset("Asset/signup/Galleryicon.png"),
+          Image.asset(imageurl),
           khight10,
           Text(
-            "From Gallery",
+            imagetext,
             style: TextStyle(fontFamily: fontBold),
           )
         ],

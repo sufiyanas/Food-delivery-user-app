@@ -22,7 +22,9 @@ final khight20 = SizedBox(
 
 final kthemeGreen = Colors.green;
 // final kthemeGrey = Color.fromRGBO(244, 244, 244, 100);
-final kthemeGrey = Colors.black;
+final kthemeGrey = Colors.grey.shade800;
+
+final kthemeBlack = Colors.black;
 //sizedbox width
 
 final kwidth10 = SizedBox(

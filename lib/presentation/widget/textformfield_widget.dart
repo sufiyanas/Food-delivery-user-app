@@ -16,13 +16,15 @@ class Textfieldwidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.grey.shade800,
           suffixIcon: suffixicon ?? SizedBox(),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.greenAccent),
+            // borderSide: BorderSide(color: Colors.greenAccent),
             borderRadius: BorderRadius.circular(20.0),
           ),
           border: OutlineInputBorder(),
-          fillColor: kthemeGreen,
+          // fillColor: kthemeGreen,
           hoverColor: kthemeGreen,
           focusColor: kthemeGreen,
           labelText: labeltext,
