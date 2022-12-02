@@ -66,6 +66,9 @@ flutter:
     - Asset/IntoScreenone/
     - Asset/signup/
     - Asset/home/
+    - Asset/profile/
+    - Asset/detailmenu/
+    - Asset/Notification/
     
   #   - images/a_dot_ham.jpeg
 

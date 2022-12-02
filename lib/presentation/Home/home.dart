@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
 import 'package:food_deliever_app/presentation/Home/widgets/listtilecard_widget.dart';
+import 'package:food_deliever_app/presentation/Notification/notification_screen.dart';
 import 'package:food_deliever_app/presentation/widget/custom_app_bar.dart';
 import 'package:food_deliever_app/presentation/widget/textformfield_widget.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -23,17 +24,23 @@ class HomeScreen extends StatelessWidget {
               textone: "Find Your",
               texttwo: "Favorate Food",
               actionButton: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                    color: Colors.grey.shade800,
-                    borderRadius: BorderRadius.circular(20)),
-                child: Icon(
-                  Icons.notifications_none,
-                  size: 30,
-                  color: kthemeGreen,
-                ),
-              ),
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: Colors.grey.shade800,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => (NotificationScreen()),
+                      ));
+                    },
+                    icon: Icon(
+                      Icons.notifications_none,
+                      size: 30,
+                      color: kthemeGreen,
+                    ),
+                  )),
             ),
             const Textfieldwidget(
               labeltext: "What do you want to order?",

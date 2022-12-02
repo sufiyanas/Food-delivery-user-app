@@ -18,6 +18,10 @@ final khight20 = SizedBox(
   height: 20,
 );
 
+final kwidth5 = SizedBox(
+  width: 5,
+);
+
 //theame color
 
 final kthemeGreen = Colors.green;

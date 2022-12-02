@@ -8,10 +8,11 @@ class CustomBackIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 60,
-      height: 60,
+      width: 50,
+      height: 50,
       decoration: BoxDecoration(
-          color: Colors.brown, borderRadius: BorderRadius.circular(20)),
+          color: Colors.brown.shade600.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(15)),
       child: IconButton(
         onPressed: () {
           Navigator.pop(context);

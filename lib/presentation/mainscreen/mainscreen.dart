@@ -15,9 +15,9 @@ class MianScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final List _pages = [
       HomeScreen(),
-      ChatScreen(),
       ProfileScreen(),
       CartScreen(),
+      ChatScreen(),
     ];
     return Scaffold(
       body: ValueListenableBuilder(
