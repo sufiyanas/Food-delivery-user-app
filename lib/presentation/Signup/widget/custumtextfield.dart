@@ -1,30 +1,38 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
 import 'package:food_deliever_app/presentation/widget/textformfield_widget.dart';
 
 class CustumTextField extends StatelessWidget {
-  const CustumTextField({super.key});
+  final fullname = TextEditingController();
+  final passwordcontroller = TextEditingController();
+  final emailController = TextEditingController();
+  CustumTextField({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Textfieldwidget(
-                labeltext: "Fullname",
-                prefixicon: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.person,
-                      color: kthemeGreen,
-                    )))),
+          padding: const EdgeInsets.all(8.0),
+          child: Textfieldwidget(
+            controller: emailController,
+            onchnaged: (value) {},
+            labeltext: "Email",
+            prefixicon: IconButton(
+              onPressed: () {},
+              icon: Icon(
+                Icons.person,
+                color: kthemeGreen,
+              ),
+            ),
+          ),
+        ),
         Padding(
             padding: const EdgeInsets.all(8.0),
             child: Textfieldwidget(
-                labeltext: "Emil",
+                controller: passwordcontroller,
+                onchnaged: (p0) {},
+                labeltext: "Password",
                 prefixicon: Icon(
                   Icons.mail,
                   color: kthemeGreen,
@@ -32,11 +40,13 @@ class CustumTextField extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Textfieldwidget(
+            controller: emailController,
+            onchnaged: (p0) {},
             prefixicon: Icon(
               Icons.lock,
               color: kthemeGreen,
             ),
-            labeltext: "Password",
+            labeltext: "Confirm Password",
             suffixicon:
                 IconButton(onPressed: () {}, icon: Icon(Icons.visibility)),
           ),

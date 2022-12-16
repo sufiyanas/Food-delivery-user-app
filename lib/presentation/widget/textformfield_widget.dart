@@ -6,15 +6,26 @@ class Textfieldwidget extends StatelessWidget {
       {Key? key,
       required this.labeltext,
       required this.prefixicon,
-      this.suffixicon})
+      required this.onchnaged,
+      this.suffixicon,
+      this.validator,
+      required this.controller})
       : super(key: key);
   final String labeltext;
   final Widget prefixicon;
   final Widget? suffixicon;
+  final Function(String) onchnaged;
+  final String? Function(String?)? validator;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
+    // TextEditingController cntrlr = TextEditingController();
     return TextFormField(
+      validator: validator,
+      controller: controller,
+      onChanged: onchnaged,
+      // cursorRadius: Radius.circular(10),
       decoration: InputDecoration(
           filled: true,
           fillColor: Colors.grey.shade800,

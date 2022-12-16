@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
+import 'package:food_deliever_app/infrasrructure/food_modal.dart';
 import 'package:food_deliever_app/presentation/Home/home.dart';
 import 'package:food_deliever_app/presentation/Home/widgets/listtilecard_widget.dart';
 import 'package:food_deliever_app/presentation/Profile/profile_screen.dart';
 
 class DetailMenuScreen extends StatelessWidget {
-  const DetailMenuScreen({super.key});
-
+  const DetailMenuScreen({super.key, required this.user});
+  final User user;
   @override
   Widget build(BuildContext context) {
     final mwidth = MediaQuery.of(context).size.width;
@@ -17,10 +18,9 @@ class DetailMenuScreen extends StatelessWidget {
           child: Container(
             width: mwidth,
             height: mwidth + 20,
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("Asset/detailmenu/Photo Menu.png"),
-                    fit: BoxFit.cover)),
+                    image: NetworkImage(user.imageURL), fit: BoxFit.cover)),
           ),
         ),
         SizedBox.expand(
@@ -30,7 +30,7 @@ class DetailMenuScreen extends StatelessWidget {
             builder: (BuildContext context, ScrollController scrollController) {
               return Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20)),
                   color: kthemeBlack,
@@ -52,7 +52,7 @@ class DetailMenuScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Container(
-                            margin: EdgeInsets.all(10),
+                            margin: const EdgeInsets.all(10),
                             width: 120,
                             height: 40,
                             decoration: BoxDecoration(
@@ -101,7 +101,7 @@ class DetailMenuScreen extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Rainbow Sandwich",
+                                Text(user.dishname,
                                     style: TextStyle(
                                         fontFamily: fontBold, fontSize: 27)),
                                 khight10,
@@ -136,7 +136,7 @@ class DetailMenuScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 10),
                         child: Text(
-                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut in geometria, prima si dederis, danda sunt omnia. Poterat autem inpune; Itaque nostrum est-quod nostrum dico, artis est-ad ea principia, quae accepimus. Quod autem satis est, eo quicquid accessit, nimium est; Duo Reges: constructio interrete. Quod cum accidisset ut alter alterum necopinato videremus, surrexit statim. Cum salvum esse flentes sui respondissent, rogavit essentne fusi hostes. Sed residamus, inquit, si placet",
+                          user.aboutdish,
                           style: TextStyle(
                             color: Colors.grey,
                             wordSpacing: 0.8,
@@ -154,10 +154,10 @@ class DetailMenuScreen extends StatelessWidget {
                             style:
                                 TextStyle(fontFamily: fontBold, fontSize: 20),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           TextButton(
                               onPressed: () {},
-                              child: Text(
+                              child: const Text(
                                 "View All",
                               )),
                         ],

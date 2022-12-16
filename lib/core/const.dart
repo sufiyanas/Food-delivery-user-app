@@ -34,3 +34,13 @@ final kthemeBlack = Colors.black;
 final kwidth10 = SizedBox(
   width: 10,
 );
+
+final kwidth20 = SizedBox(
+  width: 20,
+);
+
+//mediaQury width
+
+// mWidthfn(BuildContext ctx) {
+  
+// }

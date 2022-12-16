@@ -4,6 +4,7 @@ import 'package:food_deliever_app/presentation/Chat/chatscreen.dart';
 import 'package:food_deliever_app/presentation/Home/home.dart';
 import 'package:food_deliever_app/presentation/Profile/profile_screen.dart';
 import 'package:food_deliever_app/presentation/cart/cart_screen.dart';
+import 'package:food_deliever_app/presentation/settings/settings_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 ValueNotifier<int> currentIndexNotifier = ValueNotifier(0);
@@ -17,7 +18,7 @@ class MianScreen extends StatelessWidget {
       HomeScreen(),
       ProfileScreen(),
       CartScreen(),
-      ChatScreen(),
+      SettingsScreen(),
     ];
     return Scaffold(
       body: ValueListenableBuilder(
@@ -57,10 +58,13 @@ class MianScreen extends StatelessWidget {
                     iconColor: kthemeGreen,
                     text: "Profile"),
                 GButton(
-                    icon: Icons.transfer_within_a_station,
+                    icon: Icons.shopping_cart,
                     iconColor: kthemeGreen,
                     text: "Cart"),
-                GButton(icon: Icons.chat, iconColor: kthemeGreen, text: "Chat"),
+                GButton(
+                    icon: Icons.settings,
+                    iconColor: kthemeGreen,
+                    text: "Settings"),
               ]),
         ),
       ),

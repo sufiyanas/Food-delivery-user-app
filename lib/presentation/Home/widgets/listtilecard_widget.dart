@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
+import 'package:food_deliever_app/infrasrructure/food_modal.dart';
 import 'package:food_deliever_app/presentation/Detail%20Menu/detail_menu_screen.dart';
 
 class ListtileCard extends StatelessWidget {
   const ListtileCard({
     Key? key,
     required this.mwidth,
-    required this.amount,
+    required this.users,
   }) : super(key: key);
 
   final double mwidth;
-  final int amount;
+  final User users;
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +20,13 @@ class ListtileCard extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => (DetailMenuScreen()),
+              builder: (context) => (DetailMenuScreen(
+                user: users,
+              )),
             ));
       },
       child: Container(
-        margin: EdgeInsets.all(8),
+        margin: const EdgeInsets.all(8),
         width: mwidth - 10,
         height: 100,
         decoration: BoxDecoration(
@@ -34,7 +37,7 @@ class ListtileCard extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 10),
-              child: Image.asset("Asset/home/foodOne.png"),
+              child: Image.network(users.imageURL),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20),
@@ -43,24 +46,24 @@ class ListtileCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Herbal pancake",
+                    users.dishname,
                     style: TextStyle(fontFamily: fontBold, fontSize: 17),
                   ),
                   khight5,
                   Text(
-                    "Warung Herbal",
+                    users.dishname,
                     style: TextStyle(
                         fontFamily: fontBook, fontSize: 17, color: Colors.grey),
                   )
                 ],
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Padding(
               padding: const EdgeInsets.only(right: 20),
               child: Text(
-                "\$${amount}",
-                style: TextStyle(color: Colors.orange, fontSize: 25),
+                users.offerPrice,
+                style: const TextStyle(color: Colors.orange, fontSize: 25),
               ),
             )
           ],

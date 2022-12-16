@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
 import 'package:food_deliever_app/presentation/Signup/signup.dart';
 import 'package:food_deliever_app/presentation/Spalsh/introscreen/widgets/textwidget.dart';
+import 'package:food_deliever_app/presentation/widget/mateialbutton_cusamized.dart';
 
 class IntroScreentwo extends StatelessWidget {
   const IntroScreentwo({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final mwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
@@ -20,18 +22,16 @@ class IntroScreentwo extends StatelessWidget {
             subtext1: "enjoy a fast and smooth food delivery at ",
             subtext2: "your doorsteo",
           ),
-          ElevatedButton(
-              style: ButtonStyle(
-                  // backgroundColor: Colors.green
-                  ),
-              onPressed: () {
+          CutomMaterialButton(
+              onpressed: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => (SignUpScreeen()),
                     ));
               },
-              child: Text("Next"))
+              text: "Next",
+              width: mwidth / 2)
         ],
       ),
     );
