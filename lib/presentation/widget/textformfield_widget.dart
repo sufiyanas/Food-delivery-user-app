@@ -9,7 +9,9 @@ class Textfieldwidget extends StatelessWidget {
       required this.onchnaged,
       this.suffixicon,
       this.validator,
-      required this.controller})
+      required this.controller,
+      this.obscuseText = false,
+      this.autovalidateMode})
       : super(key: key);
   final String labeltext;
   final Widget prefixicon;
@@ -17,11 +19,15 @@ class Textfieldwidget extends StatelessWidget {
   final Function(String) onchnaged;
   final String? Function(String?)? validator;
   final TextEditingController controller;
+  final bool obscuseText;
+  final AutovalidateMode? autovalidateMode;
 
   @override
   Widget build(BuildContext context) {
     // TextEditingController cntrlr = TextEditingController();
     return TextFormField(
+      autovalidateMode: autovalidateMode,
+      obscureText: obscuseText,
       validator: validator,
       controller: controller,
       onChanged: onchnaged,

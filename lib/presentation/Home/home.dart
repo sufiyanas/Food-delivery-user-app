@@ -3,11 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
 import 'package:food_deliever_app/infrasrructure/food_modal.dart';
+import 'package:food_deliever_app/presentation/Home/viewmorepage/view_more.dart';
+import 'package:food_deliever_app/presentation/Home/widgets/custom_card.dart';
 import 'package:food_deliever_app/presentation/Home/widgets/listtilecard_widget.dart';
 import 'package:food_deliever_app/presentation/Notification/notification_screen.dart';
 import 'package:food_deliever_app/presentation/widget/custom_app_bar.dart';
 import 'package:food_deliever_app/presentation/widget/textformfield_widget.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -98,52 +99,35 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(fontFamily: fontBold, fontSize: 20),
                       ),
                       TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ViewMoreScreen(),
+                                ));
+                          },
                           child: const Text(
                             "View More",
                             style: TextStyle(color: Colors.orange),
                           ))
                     ],
                   ),
-                  // StreamBuilder(
-
-                  //     builder: (context,
-                  //         AsyncSnapshot<QuerySnapshot> streamSnaptshot) {
-                  //       if (streamSnaptshot.hasData) {
-                  //         return ListView.builder(
-                  //           physics: ScrollPhysics(),
-                  //           shrinkWrap: true,
-                  //           itemCount: streamSnaptshot.data!.docs.length,
-                  //           itemBuilder: (context, index) {
-
-                  //             return ListtileCard(
-                  //               mwidth: mwidth,
-                  //             users: ,
-                  //             );
-                  //           },
-                  //         );
-                  //       } else if (streamSnaptshot.hasError) {
-                  //         return Text("Somthing went wrong!!");
-                  //       } else {
-                  //         return Center(
-                  //           child: CircularProgressIndicator(),
-                  //         );
-                  //       }
-                  //     }),
                   StreamBuilder<List<User>>(
-                      stream: fetchFoood(CollectionName: "food"),
-                      builder: (context, snapShot) {
-                        final users = snapShot.data!;
-                        if (snapShot.hasData) {
-                          return ListView(
-                            physics: const ScrollPhysics(),
-                            shrinkWrap: true,
-                            children: users.map(listrilebuldcard).toList(),
-                          );
-                        } else {
-                          return CircularProgressIndicator();
-                        }
-                      })
+                    stream: fetchFoood(CollectionName: "food"),
+                    builder: (context, snapShot) {
+                      final users = snapShot.data!;
+
+                      if (snapShot.hasData) {
+                        return ListView(
+                          physics: const ScrollPhysics(),
+                          shrinkWrap: true,
+                          children: users.map(listrilebuldcard).toList(),
+                        );
+                      } else {
+                        return CircularProgressIndicator();
+                      }
+                    },
+                  ),
                 ]),
               ),
             ],
@@ -157,56 +141,6 @@ class HomeScreen extends StatelessWidget {
     return ListtileCard(
       mwidth: mwidth,
       users: user,
-    );
-  }
-}
-
-Stream<List<User>> fetchFoood({required String CollectionName}) =>
-    FirebaseFirestore.instance.collection(CollectionName).snapshots().map(
-        (snapShot) =>
-            snapShot.docs.map((doc) => User.fromJson(doc.data())).toList());
-
-class CustomCard extends StatelessWidget {
-  const CustomCard({
-    Key? key,
-    required this.mwidth,
-  }) : super(key: key);
-
-  final double mwidth;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: mwidth / 2 - 30,
-      // height: mwidth / 2,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-          20,
-        ),
-        color: kthemeGrey,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            "Asset/home/hotalLogo one.png",
-            // width: mwidth / 2,
-            //height: mwidth / 2,
-          ),
-          khight10,
-          Text(
-            "Vegan Resto",
-            style: TextStyle(fontFamily: fontBold, fontSize: 18),
-          ),
-          khight5,
-          Text(
-            "1 Km",
-            style: TextStyle(
-              fontFamily: fontBook,
-            ),
-          )
-        ],
-      ),
     );
   }
 }

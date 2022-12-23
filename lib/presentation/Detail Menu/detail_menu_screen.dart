@@ -1,13 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
+import 'package:food_deliever_app/core/utils.dart';
 import 'package:food_deliever_app/infrasrructure/food_modal.dart';
-import 'package:food_deliever_app/presentation/Home/home.dart';
-import 'package:food_deliever_app/presentation/Home/widgets/listtilecard_widget.dart';
-import 'package:food_deliever_app/presentation/Profile/profile_screen.dart';
+import 'package:food_deliever_app/presentation/Home/widgets/custom_card.dart';
+import 'package:food_deliever_app/presentation/widget/mateialbutton_cusamized.dart';
 
 class DetailMenuScreen extends StatelessWidget {
-  const DetailMenuScreen({super.key, required this.user});
+  DetailMenuScreen({super.key, required this.user}) {
+    _doucumentReferance =
+        FirebaseFirestore.instance.collection("user").doc("sufiyan");
+    _refferancecolloction = _doucumentReferance.collection("cart");
+  }
   final User user;
+
+  late DocumentReference _doucumentReferance;
+  late CollectionReference _refferancecolloction;
   @override
   Widget build(BuildContext context) {
     final mwidth = MediaQuery.of(context).size.width;
@@ -178,20 +186,13 @@ class DetailMenuScreen extends StatelessWidget {
                       ),
                       // Spacer(),
                       khight20,
-                      Container(
-                        width: mwidth - 10,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: kthemeGreen,
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Center(
-                          child: Text(
-                            "Add To Cart",
-                            style:
-                                TextStyle(fontFamily: fontBold, fontSize: 14),
-                          ),
-                        ),
-                      )
+                      CutomMaterialButton(
+                          onpressed: () {
+                            // createUsermethod(user);
+                            _refferancecolloction.add(user.toJson());
+                          },
+                          text: "Add to cart",
+                          width: mwidth - 10)
                     ],
                   ),
                 ),
@@ -202,4 +203,13 @@ class DetailMenuScreen extends StatelessWidget {
       ]),
     );
   }
+}
+
+// add to cart
+Future createUsermethod(User user) async {
+  final docUser = FirebaseFirestore.instance.collection("cart").doc();
+  user.id = docUser.id;
+
+  final json = user.toJson();
+  await docUser.set(json);
 }

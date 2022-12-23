@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_deliever_app/infrasrructure/food_modal.dart';
 
 final String fontBook = "BentonSansBoldBook";
 final String fontBold = "BentonSansBold";
@@ -42,5 +44,13 @@ final kwidth20 = SizedBox(
 //mediaQury width
 
 // mWidthfn(BuildContext ctx) {
-  
+
 // }
+
+Stream<List<User>> fetchFoood({required String CollectionName}) =>
+    FirebaseFirestore.instance.collection(CollectionName).snapshots().map(
+        (snapShot) =>
+            snapShot.docs.map((doc) => User.fromJson(doc.data())).toList());
+
+//current user
+

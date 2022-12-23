@@ -1,9 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/theme/custom_theme.dart';
-import 'package:food_deliever_app/presentation/Home/home.dart';
-import 'package:food_deliever_app/presentation/Login/login.dart';
-import 'package:food_deliever_app/presentation/Signup/signup.dart';
 import 'package:food_deliever_app/presentation/Signup/signup_process.dart';
 import 'package:food_deliever_app/presentation/Spalsh/introscreen/intoscreen_one.dart';
 import 'package:food_deliever_app/presentation/Spalsh/spalsh.dart';
@@ -23,6 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final navigatorkey = GlobalKey<NavigatorState>();
     return MaterialApp(
+        // scaffoldMessengerKey: Utils.messagerkey,
         navigatorKey: navigatorkey,
         theme: MyTheme.lightTheme,
         debugShowCheckedModeBanner: false,
@@ -51,6 +49,29 @@ class Mainpage extends StatelessWidget {
               return const MianScreen();
             } else {
               return const IntroScreenOne();
+            }
+          }),
+    );
+  }
+}
+
+class Mainpage2 extends StatelessWidget {
+  const Mainpage2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.userChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return const Center(child: Text("Something went Wrong!"));
+            } else if (snapshot.hasData) {
+              return const SignUpProcessScreen();
+            } else {
+              return const SignUpProcessScreen();
             }
           }),
     );

@@ -37,7 +37,15 @@ class ListtileCard extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 10),
-              child: Image.network(users.imageURL),
+              child: Container(
+                width: mwidth / 2 + 50,
+                height: mwidth / 2 + 20,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(users.imageURL))),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 20),

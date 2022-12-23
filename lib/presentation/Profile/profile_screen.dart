@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
 
@@ -6,6 +7,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     final mwidth = MediaQuery.of(context).size.width;
     return Stack(children: [
       Align(
@@ -26,7 +28,7 @@ class ProfileScreen extends StatelessWidget {
           builder: (BuildContext context, ScrollController scrollController) {
             return Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(20),
                     topRight: Radius.circular(20)),
                 color: kthemeBlack,
@@ -47,7 +49,7 @@ class ProfileScreen extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          margin: EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(10),
                           width: 120,
                           height: 40,
                           decoration: BoxDecoration(
@@ -76,8 +78,8 @@ class ProfileScreen extends StatelessWidget {
                                       fontFamily: fontBold, fontSize: 27)),
                               khight10,
                               Text(
-                                "anamwp66gmail.com",
-                                style: TextStyle(
+                                user.email!,
+                                style: const TextStyle(
                                   color: Colors.grey,
                                 ),
                               )
@@ -133,7 +135,7 @@ class VoucherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       width: mwidth,
       height: 70,
       decoration: BoxDecoration(
@@ -164,7 +166,7 @@ class FavorateList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
+      margin: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
       width: mwidth,
       height: 100,
       decoration: BoxDecoration(

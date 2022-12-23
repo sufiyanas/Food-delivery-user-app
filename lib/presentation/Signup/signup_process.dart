@@ -74,11 +74,11 @@ class SignUpProcessScreen extends StatelessWidget {
               ),
               CutomMaterialButton(
                   onpressed: () async {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => (const UploadPhotoScreen()),
-                    //     ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => (const UploadPhotoScreen()),
+                        ));
                     // try {
                     //   await FirebaseAuth.instance.signInWithEmailAndPassword(
                     //       email: firstnamecontroller.text.trim(),
