@@ -11,7 +11,8 @@ class Textfieldwidget extends StatelessWidget {
       this.validator,
       required this.controller,
       this.obscuseText = false,
-      this.autovalidateMode})
+      this.autovalidateMode,
+      this.textInputType = TextInputType.text})
       : super(key: key);
   final String labeltext;
   final Widget prefixicon;
@@ -21,11 +22,13 @@ class Textfieldwidget extends StatelessWidget {
   final TextEditingController controller;
   final bool obscuseText;
   final AutovalidateMode? autovalidateMode;
+  final TextInputType? textInputType;
 
   @override
   Widget build(BuildContext context) {
     // TextEditingController cntrlr = TextEditingController();
     return TextFormField(
+      keyboardType: textInputType,
       autovalidateMode: autovalidateMode,
       obscureText: obscuseText,
       validator: validator,

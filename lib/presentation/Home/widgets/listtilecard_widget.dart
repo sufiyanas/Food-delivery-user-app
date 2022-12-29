@@ -11,7 +11,7 @@ class ListtileCard extends StatelessWidget {
   }) : super(key: key);
 
   final double mwidth;
-  final User users;
+  final FoodModal users;
 
   @override
   Widget build(BuildContext context) {

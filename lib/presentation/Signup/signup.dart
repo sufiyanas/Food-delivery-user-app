@@ -183,12 +183,12 @@ class _SignUpScreeenState extends State<SignUpScreeen> {
 
     if (!isValid) return;
 
-    // showDialog(
-    //   context: context,
-    //   builder: (context) => Center(
-    //     child: CircularProgressIndicator(),
-    //   ),
-    // );
+    showDialog(
+      context: context,
+      builder: (context) => Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: emailcontroller.text.trim(),
@@ -198,7 +198,7 @@ class _SignUpScreeenState extends State<SignUpScreeen> {
           context: context,
           text: "Sussesfully created an account ",
           type: AnimatedSnackBarType.success);
-      setState(() {});
+
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(

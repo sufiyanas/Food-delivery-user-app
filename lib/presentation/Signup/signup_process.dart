@@ -1,5 +1,6 @@
-import 'dart:math';
+import 'dart:developer';
 
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
@@ -17,9 +18,9 @@ class SignUpProcessScreen extends StatelessWidget {
     final lastnamecontroller = TextEditingController();
     final mobileNumberController = TextEditingController();
     final mwidth = MediaQuery.of(context).size.width;
-    late String firstname;
-    late String lastname;
-    late String mobileNumber;
+    // late String firstname;
+    // late String lastname;
+    // late String mobileNumber;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -33,10 +34,18 @@ class SignUpProcessScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Textfieldwidget(
-                    controller: mobileNumberController,
+                    controller: firstnamecontroller,
                     onchnaged: (value) {
-                      firstname = value;
+                      // firstname = value;
                     },
+                    //   validator: (value) {
+                    //   if (value == null || value.isEmpty) {
+                    //     return "Enter any password";
+                    //   } else if (value.length < 6) {
+                    //     return "Min 6 digits";
+                    //   }
+                    //   return null;
+                    // },
                     labeltext: "First Name",
                     prefixicon: Icon(
                       Icons.person,
@@ -48,7 +57,7 @@ class SignUpProcessScreen extends StatelessWidget {
                 child: Textfieldwidget(
                     controller: lastnamecontroller,
                     onchnaged: (value) {
-                      lastname = value;
+                      // lastname = value;
                     },
                     labeltext: "Last Name",
                     prefixicon: Icon(
@@ -59,9 +68,10 @@ class SignUpProcessScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Textfieldwidget(
+                    textInputType: TextInputType.number,
                     controller: mobileNumberController,
                     onchnaged: (value) {
-                      mobileNumber = value;
+                      // mobileNumber = value;
                     },
                     labeltext: "Mobile Number",
                     prefixicon: Icon(
@@ -74,10 +84,17 @@ class SignUpProcessScreen extends StatelessWidget {
               ),
               CutomMaterialButton(
                   onpressed: () async {
+                    log(firstnamecontroller.text);
+                    log(lastnamecontroller.text);
+                    log(mobileNumberController.text);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => (const UploadPhotoScreen()),
+                          builder: (context) => (UploadPhotoScreen(
+                            firstname: firstnamecontroller.text.trim(),
+                            lastname: lastnamecontroller.text.trim(),
+                            mobilenumber: mobileNumberController.text.trim(),
+                          )),
                         ));
                     // try {
                     //   await FirebaseAuth.instance.signInWithEmailAndPassword(

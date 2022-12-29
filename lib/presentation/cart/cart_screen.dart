@@ -1,14 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:food_deliever_app/core/const.dart';
 import 'package:food_deliever_app/infrasrructure/food_modal.dart';
 import 'package:food_deliever_app/presentation/cart/widget/place_order_row.dart';
 import 'package:food_deliever_app/presentation/cart/widget/product_tile.dart';
 
 class CartScreen extends StatelessWidget {
-  const CartScreen({super.key});
+  CartScreen({super.key});
+
+  final currentUser = FirebaseAuth.instance.currentUser!;
   final double mwidthfortile = 100;
+  var isCartEmpty = false;
+
   @override
   Widget build(BuildContext context) {
     final mwidth = MediaQuery.of(context).size.width;
@@ -26,26 +30,44 @@ class CartScreen extends StatelessWidget {
             Expanded(
               child: Stack(
                 children: [
-                  StreamBuilder<List<User>>(
-                    stream: fetchFoood(CollectionName: "cart"),
+                  StreamBuilder<List<FoodModal>>(
+                    stream: fetchFoodfromcart(currentUser.email.toString()),
                     builder: (context, snapShot) {
-                      final users = snapShot.data!;
-
                       if (snapShot.hasData) {
-                        return ListView(
-                          physics: const ScrollPhysics(),
-                          shrinkWrap: true,
-                          children: users.map(listrilebuldcard).toList(),
+                        final userss = snapShot.data!;
+                        if (snapShot.hasError) {
+                          Text("something wend wrong");
+                        } else if (userss.isEmpty) {
+                          isCartEmpty = true;
+                          return Center(
+                            child: Text("Add some product to cart"),
+                          );
+                        }
+                        return SingleChildScrollView(
+                          child: Stack(
+                            children: [
+                              Column(
+                                // physics: const ScrollPhysics(),
+                                // shrinkWrap: true,
+                                children: userss.map(listrilebuldcard).toList(),
+                              ),
+                              Visibility(
+                                visible: isCartEmpty,
+                                child: Positioned(
+                                  bottom: 10,
+                                  left: 10,
+                                  child: PlaceOrderCard(
+                                    mwidth: mwidth,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         );
                       } else {
                         return CircularProgressIndicator();
                       }
                     },
-                  ),
-                  Positioned(
-                    bottom: 10,
-                    left: 10,
-                    child: PlaceOrderCard(mwidth: mwidth),
                   ),
                 ],
               ),
@@ -57,20 +79,11 @@ class CartScreen extends StatelessWidget {
   }
 
   Widget listrilebuldcard(
-    User user,
+    FoodModal user,
   ) {
     return CartProductTile(
       mwidth: mwidthfortile,
       user: user,
     );
   }
-}
-
-//for creating user
-Future createUsermethod(User user) async {
-  final docUser = FirebaseFirestore.instance.collection("cart").doc();
-  user.id = docUser.id;
-
-  final json = user.toJson();
-  await docUser.set(json);
 }

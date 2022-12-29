@@ -16,7 +16,7 @@ class CartProductTile extends StatelessWidget {
   // final String imageUrl;
   // final String name;
   // final String status;
-  User user;
+  FoodModal user;
 
   @override
   Widget build(BuildContext context) {

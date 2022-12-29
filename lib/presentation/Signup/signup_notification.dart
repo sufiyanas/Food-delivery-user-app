@@ -20,13 +20,17 @@ class SignUpSucessNotification extends StatelessWidget {
             Column(
               children: [
                 SizedBox(
-                  height: mwidth / 2,
+                  height: mwidth * 0.20,
                 ),
-                LottieBuilder.network(
-                  "https://assets7.lottiefiles.com/packages/lf20_fNYBBByMRa.json",
+                // LottieBuilder.network(
+                //   "https://assets7.lottiefiles.com/packages/lf20_fNYBBByMRa.json",
+                //   repeat: false,
+                //   fit: BoxFit.cover,
+                //   alignment: Alignment.center,
+                // ),
+                LottieBuilder.asset(
+                  "Asset/sucsees.json",
                   repeat: false,
-                  fit: BoxFit.cover,
-                  alignment: Alignment.center,
                 ),
                 Text(
                   "Congrats !",

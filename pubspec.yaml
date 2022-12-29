@@ -29,17 +29,24 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  animated_snack_bar: ^0.3.0
+  awesome_snackbar_content: ^0.1.0
   badges: ^2.0.2
   cloud_firestore: ^4.2.0
   cupertino_icons: ^1.0.2
   email_validator: ^2.1.17
   firebase_auth: ^4.2.0
+  firebase_storage: ^11.0.9
   flutter:
     sdk: flutter
+  geolocator: ^9.0.2
+  google_maps_flutter: ^2.2.2
   google_nav_bar: ^5.0.6
+  image_picker: ^0.8.6
   lottie: ^2.0.0
-  awesome_snackbar_content: ^0.1.0
-  animated_snack_bar: ^0.3.0
+  geocoding: ^2.0.5
+  
+  
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -67,6 +74,7 @@ flutter:
     - Asset/Notification/
     - Asset/chat/
     - Asset/Cart/Menu Photo.png
+    - Asset/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

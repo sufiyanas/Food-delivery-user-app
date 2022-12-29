@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
+import 'package:food_deliever_app/infrasrructure/food_modal.dart';
 import 'package:food_deliever_app/presentation/OrderService/conform_order_screen.dart';
 
 class PlaceOrderCard extends StatelessWidget {

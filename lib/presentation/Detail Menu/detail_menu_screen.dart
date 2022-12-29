@@ -1,4 +1,6 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
 import 'package:food_deliever_app/core/utils.dart';
@@ -9,11 +11,11 @@ import 'package:food_deliever_app/presentation/widget/mateialbutton_cusamized.da
 class DetailMenuScreen extends StatelessWidget {
   DetailMenuScreen({super.key, required this.user}) {
     _doucumentReferance =
-        FirebaseFirestore.instance.collection("user").doc("sufiyan");
+        FirebaseFirestore.instance.collection("user").doc(currentUser.email);
     _refferancecolloction = _doucumentReferance.collection("cart");
   }
-  final User user;
-
+  final FoodModal user;
+  final currentUser = FirebaseAuth.instance.currentUser!;
   late DocumentReference _doucumentReferance;
   late CollectionReference _refferancecolloction;
   @override
@@ -190,6 +192,10 @@ class DetailMenuScreen extends StatelessWidget {
                           onpressed: () {
                             // createUsermethod(user);
                             _refferancecolloction.add(user.toJson());
+                            Utils.customSnackbar(
+                                context: context,
+                                text: "${user.dishname} Added to cart",
+                                type: AnimatedSnackBarType.success);
                           },
                           text: "Add to cart",
                           width: mwidth - 10)
@@ -206,10 +212,10 @@ class DetailMenuScreen extends StatelessWidget {
 }
 
 // add to cart
-Future createUsermethod(User user) async {
-  final docUser = FirebaseFirestore.instance.collection("cart").doc();
-  user.id = docUser.id;
+// Future createUsermethod(FoodModal user) async {
+//   final docUser = FirebaseFirestore.instance.collection("cart").doc();
+//   user.id = docUser.id;
 
-  final json = user.toJson();
-  await docUser.set(json);
-}
+//   final json = user.toJson();
+//   await docUser.set(json);
+// }

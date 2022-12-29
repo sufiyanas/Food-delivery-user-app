@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -112,19 +114,25 @@ class HomeScreen extends StatelessWidget {
                           ))
                     ],
                   ),
-                  StreamBuilder<List<User>>(
+                  StreamBuilder<List<FoodModal>>(
                     stream: fetchFoood(CollectionName: "food"),
                     builder: (context, snapShot) {
-                      final users = snapShot.data!;
+                      // final users = snapShot.data!;
+                      log(snapShot.toString());
 
                       if (snapShot.hasData) {
+                        final userss = snapShot.data!;
+                        log(userss.toString());
+                        if (userss.isEmpty) {
+                          return Text("Please Add some food");
+                        }
                         return ListView(
                           physics: const ScrollPhysics(),
                           shrinkWrap: true,
-                          children: users.map(listrilebuldcard).toList(),
+                          children: userss.map(listrilebuldcard).toList(),
                         );
                       } else {
-                        return CircularProgressIndicator();
+                        return Center(child: Text("please add some data"));
                       }
                     },
                   ),
@@ -137,7 +145,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget listrilebuldcard(User user) {
+  Widget listrilebuldcard(FoodModal user) {
     return ListtileCard(
       mwidth: mwidth,
       users: user,

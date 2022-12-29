@@ -1,4 +1,4 @@
-class User {
+class FoodModal {
   String id;
   final String dishname;
   final String aboutdish;
@@ -6,8 +6,10 @@ class User {
   final String orginalPrice;
   final String offerPrice;
   final String imageURL;
+  final String count;
 
-  User({
+  FoodModal({
+    this.count = "1",
     required this.orginalPrice,
     required this.offerPrice,
     this.id = "",
@@ -18,6 +20,7 @@ class User {
   });
 
   Map<String, dynamic> toJson() => {
+        "Count": count,
         "id": id,
         'DishName': dishname,
         'AboutDish': aboutdish,
@@ -27,7 +30,8 @@ class User {
         'imageURL': imageURL,
       };
 
-  static User fromJson(Map<String, dynamic> json) => User(
+  static FoodModal fromJson(Map<String, dynamic> json) => FoodModal(
+        count: json["Count"],
         id: json["id"],
         dishname: json["DishName"],
         aboutdish: json["AboutDish"],

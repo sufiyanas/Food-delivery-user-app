@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
+import 'package:food_deliever_app/main.dart';
 import 'package:food_deliever_app/presentation/Chat/chatscreen.dart';
 
 import 'package:food_deliever_app/presentation/widget/custom_app_bar.dart';
@@ -35,6 +36,12 @@ class SettingsScreen extends StatelessWidget {
                     child: IconButton(
                         onPressed: () {
                           FirebaseAuth.instance.signOut();
+
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Mainpage(),
+                              ));
                         },
                         icon: const Icon(
                           Icons.exit_to_app,

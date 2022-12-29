@@ -1,6 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/theme/custom_theme.dart';
+import 'package:food_deliever_app/presentation/Login/login.dart';
+import 'package:food_deliever_app/presentation/Signup/setuplocation.dart';
+import 'package:food_deliever_app/presentation/Signup/signup.dart';
+import 'package:food_deliever_app/presentation/Signup/signup_notification.dart';
 import 'package:food_deliever_app/presentation/Signup/signup_process.dart';
 import 'package:food_deliever_app/presentation/Spalsh/introscreen/intoscreen_one.dart';
 import 'package:food_deliever_app/presentation/Spalsh/spalsh.dart';
@@ -20,15 +24,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final navigatorkey = GlobalKey<NavigatorState>();
     return MaterialApp(
-        // scaffoldMessengerKey: Utils.messagerkey,
-        navigatorKey: navigatorkey,
-        theme: MyTheme.lightTheme,
-        debugShowCheckedModeBanner: false,
-        darkTheme: MyTheme.darkTheme,
-        themeMode: ThemeMode.system,
-        home: Mainpage()
-        // home: LoginScreen(),
-        );
+      // scaffoldMessengerKey: Utils.messagerkey,
+      navigatorKey: navigatorkey,
+      theme: MyTheme.lightTheme,
+      debugShowCheckedModeBanner: false,
+      darkTheme: MyTheme.darkTheme,
+      themeMode: ThemeMode.system,
+      // home: SetLocationScreen()
+      home: Mainpage(),
+    );
   }
 }
 
@@ -71,7 +75,7 @@ class Mainpage2 extends StatelessWidget {
             } else if (snapshot.hasData) {
               return const SignUpProcessScreen();
             } else {
-              return const SignUpProcessScreen();
+              return SignUpScreeen();
             }
           }),
     );

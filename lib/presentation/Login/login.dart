@@ -7,10 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
 import 'package:food_deliever_app/core/utils.dart';
 import 'package:food_deliever_app/main.dart';
-import 'package:food_deliever_app/presentation/Home/home.dart';
 import 'package:food_deliever_app/presentation/Login/forgetpasswordpage.dart';
-import 'package:food_deliever_app/presentation/Spalsh/introscreen/intoscreen_one.dart';
-import 'package:food_deliever_app/presentation/mainscreen/mainscreen.dart';
 import 'package:food_deliever_app/presentation/widget/textformfield_widget.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -114,12 +111,12 @@ class LoginScreen extends StatelessWidget {
 
     try {
       log("The email is $email and password is $password");
-      // showDialog(
-      //   context: context,
-      //   builder: (context) => const Center(
-      //     child: CircularProgressIndicator(),
-      //   ),
-      // );
+      showDialog(
+        context: context,
+        builder: (context) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passController.text.trim());

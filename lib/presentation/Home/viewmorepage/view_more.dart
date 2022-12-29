@@ -47,7 +47,7 @@ class ViewMoreScreen extends StatelessWidget {
                       )),
                 ),
                 const BigTextWithBold(text: "Popular menu"),
-                StreamBuilder<List<User>>(
+                StreamBuilder<List<FoodModal>>(
                   stream: fetchFoood(CollectionName: "food"),
                   builder: (context, snapShot) {
                     final users = snapShot.data!;
@@ -70,7 +70,7 @@ class ViewMoreScreen extends StatelessWidget {
     );
   }
 
-  Widget listrilebuldcard(User user) {
+  Widget listrilebuldcard(FoodModal user) {
     return ListtileCard(
       mwidth: mwidth,
       users: user,
