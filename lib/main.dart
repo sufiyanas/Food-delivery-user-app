@@ -1,13 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/theme/custom_theme.dart';
-import 'package:food_deliever_app/presentation/Login/login.dart';
-import 'package:food_deliever_app/presentation/Signup/setuplocation.dart';
 import 'package:food_deliever_app/presentation/Signup/signup.dart';
-import 'package:food_deliever_app/presentation/Signup/signup_notification.dart';
 import 'package:food_deliever_app/presentation/Signup/signup_process.dart';
 import 'package:food_deliever_app/presentation/Spalsh/introscreen/intoscreen_one.dart';
-import 'package:food_deliever_app/presentation/Spalsh/spalsh.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:food_deliever_app/presentation/mainscreen/mainscreen.dart';
 

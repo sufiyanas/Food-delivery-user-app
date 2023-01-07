@@ -1,9 +1,7 @@
 import 'dart:developer';
-
 import 'dart:ui' as ui;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_deliever_app/core/const.dart';
@@ -15,7 +13,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-final demoimagepath = "Asset/profile/location.png";
+const demoimagepath = "Asset/profile/location.png";
 
 class SetLocationScreen extends StatefulWidget {
   SetLocationScreen(

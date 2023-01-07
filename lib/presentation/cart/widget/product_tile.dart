@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
-import 'package:food_deliever_app/infrasrructure/food_modal.dart';
+import 'package:food_deliever_app/core/dbFunctions/cart.dart';
+import 'package:food_deliever_app/infrasrructure/cart_modal.dart';
 
 class CartProductTile extends StatelessWidget {
   CartProductTile({
@@ -16,7 +18,7 @@ class CartProductTile extends StatelessWidget {
   // final String imageUrl;
   // final String name;
   // final String status;
-  FoodModal user;
+  CartModal user;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class CartProductTile extends StatelessWidget {
                 style: TextStyle(fontFamily: fontBold, fontSize: 17),
               ),
               Text(
-                "available",
+                "hotal_name",
                 style: const TextStyle(
                   color: Colors.grey,
                 ),
@@ -59,7 +61,7 @@ class CartProductTile extends StatelessWidget {
             ],
           ),
           const Spacer(),
-          const CustomItomCounter(),
+          CustomItomCounter(dishName: user.dishname, cartModal: user),
           kwidth10
         ],
       ),
@@ -68,48 +70,97 @@ class CartProductTile extends StatelessWidget {
 }
 
 class CustomItomCounter extends StatelessWidget {
-  const CustomItomCounter({
+  CustomItomCounter({
     Key? key,
+    required this.dishName,
+    required this.cartModal,
   }) : super(key: key);
+  final String dishName;
+  final CartModal cartModal;
+  final currentUser = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 30,
-          height: 30,
-          decoration: BoxDecoration(
-            color: Colors.green.shade600.withOpacity(0.5),
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: TextButton(
-            onPressed: () {},
-            child: const Text(
-              "--",
-              style: TextStyle(fontSize: 15, color: Colors.white),
-            ),
-          ),
-        ),
-        kwidth5,
-        const Text("1"),
-        kwidth5,
-        Container(
-          width: 30,
-          height: 30,
-          decoration: BoxDecoration(
-            color: Colors.green.shade600,
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: Center(
-              child: IconButton(
-                  onPressed: () {},
-                  icon: const Text(
-                    "+",
-                    style: TextStyle(fontSize: 15),
-                  ))),
-        )
-      ],
-    );
+    return StreamBuilder(
+        stream: fetchcountfromcart(currentUser.email!, dishName),
+        builder: (context, snapshot) {
+          return Row(
+            children: [
+              Container(
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                  color: Colors.green.shade600.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: TextButton(
+                  onPressed: () {
+                    int currentPrice = int.parse(cartModal.orginalPrice);
+
+                    final int newPrize =
+                        currentPrice - int.parse(cartModal.offerPrice);
+                    final String countedPrize = newPrize.toString();
+
+                    //count
+                    int count = cartModal.cartCount;
+                    final int newCount = count - 1;
+
+                    editCartCount(
+                        cartModal: CartModal(
+                      hotalEmail: cartModal.hotalEmail,
+                      cartCount: newCount,
+                      dishname: cartModal.dishname,
+                      orginalPrice: countedPrize,
+                      offerPrice: cartModal.offerPrice,
+                      imageURL: cartModal.imageURL,
+                    ));
+                  },
+                  child: const Text(
+                    "--",
+                    style: TextStyle(fontSize: 15, color: Colors.white),
+                  ),
+                ),
+              ),
+              kwidth5,
+              Text(cartModal.cartCount.toString()),
+              kwidth5,
+              Container(
+                width: 30,
+                height: 30,
+                decoration: BoxDecoration(
+                  color: Colors.green.shade600,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: Center(
+                    child: IconButton(
+                        onPressed: () async {
+                          int currentPrice = int.parse(cartModal.orginalPrice);
+
+                          final int newPrize =
+                              currentPrice + int.parse(cartModal.offerPrice);
+                          final String countedPrize = newPrize.toString();
+
+                          //count
+                          int count = cartModal.cartCount;
+                          final int newCount = count + 1;
+
+                          editCartCount(
+                              cartModal: CartModal(
+                            hotalEmail: cartModal.hotalEmail,
+                            cartCount: newCount,
+                            dishname: cartModal.dishname,
+                            orginalPrice: countedPrize,
+                            offerPrice: cartModal.offerPrice,
+                            imageURL: cartModal.imageURL,
+                          ));
+                        },
+                        icon: const Text(
+                          "+",
+                          style: TextStyle(fontSize: 15),
+                        ))),
+              )
+            ],
+          );
+        });
   }
 }

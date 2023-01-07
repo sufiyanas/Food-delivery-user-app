@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_deliever_app/infrasrructure/cart_modal.dart';
 import 'package:food_deliever_app/infrasrructure/food_modal.dart';
 import 'package:food_deliever_app/infrasrructure/user_modal.dart';
 
@@ -54,15 +55,15 @@ Stream<List<FoodModal>> fetchFoood({required String CollectionName}) =>
             .map((doc) => FoodModal.fromJson(doc.data()))
             .toList());
 
-//current user
-Stream<List<FoodModal>> fetchFoodfromcart(String userEmail) => FirebaseFirestore
+//current cart
+Stream<List<CartModal>> fetchFoodfromcart(String userEmail) => FirebaseFirestore
     .instance
     .collection('user')
     .doc(userEmail)
     .collection('cart')
     .snapshots()
     .map((snapshots) =>
-        snapshots.docs.map((doc) => FoodModal.fromJson(doc.data())).toList());
+        snapshots.docs.map((doc) => CartModal.fromJson(doc.data())).toList());
 
 //fetchFoodFromUserInformation
 Stream<List<UserModal>> fetchUserInformation(String userEmail) =>
@@ -74,3 +75,16 @@ Stream<List<UserModal>> fetchUserInformation(String userEmail) =>
         .map((snapshots) => snapshots.docs
             .map((doc) => UserModal.fromjson(doc.data()))
             .toList());
+
+//cart tile function
+Stream<Map<String, dynamic>> fetchcountfromcart(
+        String userEmail, String dishname) =>
+    FirebaseFirestore.instance
+        .collection('user')
+        .doc(userEmail)
+        .collection('cart')
+        .doc(dishname)
+        .snapshots()
+        .map(
+          (snapshots) => snapshots.data()!,
+        );

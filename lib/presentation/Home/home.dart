@@ -1,9 +1,8 @@
 import 'dart:developer';
-
 import 'package:badges/badges.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
+import 'package:food_deliever_app/core/dbFunctions/home.dart';
 import 'package:food_deliever_app/infrasrructure/food_modal.dart';
 import 'package:food_deliever_app/presentation/Home/viewmorepage/view_more.dart';
 import 'package:food_deliever_app/presentation/Home/widgets/custom_card.dart';
@@ -57,7 +56,7 @@ class HomeScreen extends StatelessWidget {
                 controller: searchController,
                 onchnaged: (p0) {},
                 labeltext: "What do you want to order?",
-                prefixicon: Icon(
+                prefixicon: const Icon(
                   Icons.search,
                   color: Colors.white,
                 ),
@@ -75,24 +74,34 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(fontFamily: fontBold, fontSize: 20),
                       ),
                       TextButton(
-                          onPressed: () {}, child: const Text("View More"))
+                          onPressed: () async {
+                            final gh = await setAllDocumentInsideCategories();
+                            log(gh.toString());
+                          },
+                          child: const Text("View More"))
                     ],
                   ),
                   // CustomCard(mwidth: mwidth)
-                  SizedBox(
-                    height: mwidth / 2 + 30,
-                    width: double.infinity,
-                    child: ListView.builder(
-                      itemCount: 10,
-                      shrinkWrap: true,
-                      physics: const ScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: CustomCard(mwidth: mwidth),
-                      ),
-                    ),
-                  ),
+
+                  // SizedBox(
+                  //   height: mwidth / 2 + 30,
+                  //   width: double.infinity,
+                  //   child: StreamBuilder(
+                  //     stream: ,
+                  //     builder: (context) {
+                  //       return ListView.builder(
+                  //         itemCount: 10,
+                  //         shrinkWrap: true,
+                  //         physics: const ScrollPhysics(),
+                  //         scrollDirection: Axis.horizontal,
+                  //         itemBuilder: (context, index) => Padding(
+                  //           padding: const EdgeInsets.all(8.0),
+                  //           child: CustomCard(mwidth: mwidth),
+                  //         ),
+                  //       );
+                  //     }
+                  //   ),
+                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -145,10 +154,16 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+//for food
   Widget listrilebuldcard(FoodModal user) {
     return ListtileCard(
       mwidth: mwidth,
       users: user,
     );
+  }
+
+//for hotal
+  Widget listCardHotal(FoodModal user) {
+    return CustomCard(mwidth: mwidth);
   }
 }

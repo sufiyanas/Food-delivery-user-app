@@ -8,7 +8,6 @@ import 'package:food_deliever_app/core/utils.dart';
 import 'package:food_deliever_app/presentation/widget/bigtext.dart';
 import 'package:food_deliever_app/presentation/widget/mateialbutton_cusamized.dart';
 import 'package:food_deliever_app/presentation/widget/textformfield_widget.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 class ForgetpasswordScreen extends StatelessWidget {
   ForgetpasswordScreen({super.key});

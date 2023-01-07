@@ -1,23 +1,29 @@
+import 'dart:developer';
+
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
+import 'package:food_deliever_app/core/dbFunctions/favorate.dart';
 import 'package:food_deliever_app/core/utils.dart';
+import 'package:food_deliever_app/infrasrructure/cart_modal.dart';
 import 'package:food_deliever_app/infrasrructure/food_modal.dart';
 import 'package:food_deliever_app/presentation/Home/widgets/custom_card.dart';
+import 'package:food_deliever_app/presentation/Profile/profile_screen.dart';
 import 'package:food_deliever_app/presentation/widget/mateialbutton_cusamized.dart';
 
 class DetailMenuScreen extends StatelessWidget {
   DetailMenuScreen({super.key, required this.user}) {
     _doucumentReferance =
         FirebaseFirestore.instance.collection("user").doc(currentUser.email);
-    _refferancecolloction = _doucumentReferance.collection("cart");
+    _refferancecolloction =
+        _doucumentReferance.collection("cart").doc(user.dishname);
   }
   final FoodModal user;
   final currentUser = FirebaseAuth.instance.currentUser!;
   late DocumentReference _doucumentReferance;
-  late CollectionReference _refferancecolloction;
+  late DocumentReference _refferancecolloction;
   @override
   Widget build(BuildContext context) {
     final mwidth = MediaQuery.of(context).size.width;
@@ -88,18 +94,56 @@ class DetailMenuScreen extends StatelessWidget {
                                 )),
                           ),
                           kwidth10,
-                          CircleAvatar(
-                            backgroundColor:
-                                Colors.red.shade300.withOpacity(0.3),
-                            radius: 20,
-                            child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.favorite,
-                                color: Colors.red,
-                              ),
-                            ),
-                          ),
+                          StreamBuilder(
+                              stream: getStreamFavorate(
+                                  userEmail: currentUser.email!),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasError) {
+                                  return Center(
+                                    child: Text("Some thing went wrong"),
+                                  );
+                                } else if (snapshot.hasData) {
+                                  final favList = snapshot.data;
+                                  return CircleAvatar(
+                                    backgroundColor:
+                                        Colors.red.shade300.withOpacity(0.3),
+                                    radius: 20,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        if (favList
+                                            .where((element) =>
+                                                element.dishname ==
+                                                user.dishname)
+                                            .isEmpty) {
+                                          addToFavorate(
+                                              userEmail: currentUser.email!,
+                                              foodModal: user);
+                                          log("Added to favorate");
+                                        } else {
+                                          removeFromFavorate(
+                                              userEmail: currentUser.email!,
+                                              foodModal: user);
+                                          log("Removed from favorate");
+                                        }
+                                      },
+                                      icon: Icon(
+                                        Icons.favorite,
+                                        color: (favList!
+                                                .where((element) =>
+                                                    element.dishname ==
+                                                    user.dishname)
+                                                .isEmpty)
+                                            ? Colors.white
+                                            : Colors.red,
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+                              }),
                         ],
                       ),
                       Padding(
@@ -189,9 +233,23 @@ class DetailMenuScreen extends StatelessWidget {
                       // Spacer(),
                       khight20,
                       CutomMaterialButton(
-                          onpressed: () {
+                          onpressed: () async {
+                            //  if (cartitem.isItemAddedInCart==true) {
+
+                            //   }
                             // createUsermethod(user);
-                            _refferancecolloction.add(user.toJson());
+                            final CartModal cartitem = CartModal(
+                              hotalEmail: user.hotalEmail,
+                              dishname: user.dishname,
+                              isItemAddedInCart: true,
+                              imageURL: user.imageURL,
+                              offerPrice: user.offerPrice,
+                              orginalPrice: user.orginalPrice,
+                            );
+
+                            await _refferancecolloction.set(cartitem.toJson());
+
+                            // log(respponse);
                             Utils.customSnackbar(
                                 context: context,
                                 text: "${user.dishname} Added to cart",

@@ -7,6 +7,7 @@ class FoodModal {
   final String offerPrice;
   final String imageURL;
   final String count;
+  final String hotalEmail;
 
   FoodModal({
     this.count = "1",
@@ -17,6 +18,7 @@ class FoodModal {
     required this.aboutdish,
     required this.increadients,
     required this.imageURL,
+    required this.hotalEmail,
   });
 
   Map<String, dynamic> toJson() => {
@@ -28,16 +30,17 @@ class FoodModal {
         'OrginalPrice': orginalPrice,
         'OfferPrice': offerPrice,
         'imageURL': imageURL,
+        'restaurentEmail': hotalEmail
       };
 
   static FoodModal fromJson(Map<String, dynamic> json) => FoodModal(
-        count: json["Count"],
-        id: json["id"],
-        dishname: json["DishName"],
-        aboutdish: json["AboutDish"],
-        increadients: json["Increadients"],
-        offerPrice: json["OfferPrice"],
-        orginalPrice: json["OrginalPrice"],
-        imageURL: json['imageURL'],
-      );
+      count: json["Count"],
+      id: json["id"],
+      dishname: json["DishName"],
+      aboutdish: json["AboutDish"],
+      increadients: json["Increadients"],
+      offerPrice: json["OfferPrice"],
+      orginalPrice: json["OrginalPrice"],
+      imageURL: json['imageURL'],
+      hotalEmail: json['restaurentEmail']);
 }
