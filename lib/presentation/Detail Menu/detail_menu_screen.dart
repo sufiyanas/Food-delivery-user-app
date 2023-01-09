@@ -216,20 +216,20 @@ class DetailMenuScreen extends StatelessWidget {
                               )),
                         ],
                       ),
-                      SizedBox(
-                        height: mwidth / 2 + 30,
-                        width: double.infinity,
-                        child: ListView.builder(
-                          itemCount: 10,
-                          shrinkWrap: true,
-                          physics: const ScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CustomCard(mwidth: mwidth),
-                          ),
-                        ),
-                      ),
+                      // SizedBox(
+                      //   height: mwidth / 2 + 30,
+                      //   width: double.infinity,
+                      //   child: ListView.builder(
+                      //     itemCount: 10,
+                      //     shrinkWrap: true,
+                      //     physics: const ScrollPhysics(),
+                      //     scrollDirection: Axis.horizontal,
+                      //     itemBuilder: (context, index) => Padding(
+                      //       padding: const EdgeInsets.all(8.0),
+                      //       child: CustomCard(mwidth: mwidth),
+                      //     ),
+                      //   ),
+                      // ),
                       // Spacer(),
                       khight20,
                       CutomMaterialButton(

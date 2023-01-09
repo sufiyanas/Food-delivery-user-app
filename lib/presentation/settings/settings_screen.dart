@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
+import 'package:food_deliever_app/core/dbFunctions/order_function.dart';
 import 'package:food_deliever_app/main.dart';
 import 'package:food_deliever_app/presentation/Chat/chatscreen.dart';
+import 'package:food_deliever_app/presentation/settings/orders_history_screen.dart';
+import 'package:food_deliever_app/presentation/settings/widgets/settings_tile.dart';
 
 import 'package:food_deliever_app/presentation/widget/custom_app_bar.dart';
 
@@ -53,8 +56,14 @@ class SettingsScreen extends StatelessWidget {
               padding: const EdgeInsets.only(left: 15, right: 15, top: 40),
               child: Column(
                 children: [
-                  const SettingsTile(
-                      leadingicon: Icons.shopping_cart, text: "Orders"),
+                  SettingsTile(
+                      ontapfunction: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OrderHistoryScreen(),
+                          )),
+                      leadingicon: Icons.shopping_cart,
+                      text: "Orders"),
                   divider,
                   SettingsTile(
                     leadingicon: Icons.forum,
@@ -68,7 +77,8 @@ class SettingsScreen extends StatelessWidget {
                     },
                   ),
                   divider,
-                  const SettingsTile(
+                  SettingsTile(
+                      ontapfunction: () {},
                       leadingicon: Icons.local_offer_outlined,
                       text: "Offers & promo"),
                   divider,
@@ -81,45 +91,10 @@ class SettingsScreen extends StatelessWidget {
             Text(
               "Made with ❤️ by Sufiyan",
               style: TextStyle(fontFamily: fontBook, color: Colors.grey),
-            )
+            ),
+            khight10
           ],
         ),
-      ),
-    );
-  }
-}
-
-class SettingsTile extends StatelessWidget {
-  const SettingsTile(
-      {Key? key,
-      required this.text,
-      required this.leadingicon,
-      this.ontapfunction})
-      : super(key: key);
-  final String text;
-  final IconData leadingicon;
-  final Function()? ontapfunction;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: ontapfunction,
-      child: Row(
-        children: [
-          Icon(
-            leadingicon,
-            color: kthemeGreen,
-          ),
-          kwidth10,
-          Text(
-            text,
-            style: TextStyle(color: Colors.grey.shade100, fontSize: 25),
-          ),
-          const Spacer(),
-          Icon(
-            Icons.arrow_forward_ios_rounded,
-            color: kthemeGreen,
-          )
-        ],
       ),
     );
   }

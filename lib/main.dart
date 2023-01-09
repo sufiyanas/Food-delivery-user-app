@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_deliever_app/application/search/search_bloc.dart';
 import 'package:food_deliever_app/core/theme/custom_theme.dart';
 import 'package:food_deliever_app/presentation/Signup/signup.dart';
 import 'package:food_deliever_app/presentation/Signup/signup_process.dart';
@@ -19,15 +21,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navigatorkey = GlobalKey<NavigatorState>();
-    return MaterialApp(
-      // scaffoldMessengerKey: Utils.messagerkey,
-      navigatorKey: navigatorkey,
-      theme: MyTheme.lightTheme,
-      debugShowCheckedModeBanner: false,
-      darkTheme: MyTheme.darkTheme,
-      themeMode: ThemeMode.system,
-      // home: SetLocationScreen()
-      home: Mainpage(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SearchBloc(),
+        )
+      ],
+      child: MaterialApp(
+        // scaffoldMessengerKey: Utils.messagerkey,
+        navigatorKey: navigatorkey,
+        theme: MyTheme.lightTheme,
+        debugShowCheckedModeBanner: false,
+        darkTheme: MyTheme.darkTheme,
+        themeMode: ThemeMode.system,
+        // home: SetLocationScreen()
+        home: Mainpage(),
+      ),
     );
   }
 }

@@ -22,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
             final UserModal OneUser = userss[0];
 
             if (userss.isEmpty) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             } else {
               return Stack(children: [
                 Align(
@@ -132,20 +132,20 @@ class ProfileScreen extends StatelessWidget {
                                     getStreamFavorate(userEmail: user.email!),
                                 builder: (context, snapshot) {
                                   if (snapshot.hasError) {
-                                    return Center(
+                                    return const Center(
                                       child: Text("Some thing went wrong"),
                                     );
                                   } else if (snapshot.hasData) {
                                     final favlist = snapshot.data;
 
                                     return (favlist!.isEmpty)
-                                        ? Center(
+                                        ? const Center(
                                             child:
                                                 Text("Fvaorate List is Empty"),
                                           )
                                         : ListView.builder(
                                             shrinkWrap: true,
-                                            physics: ScrollPhysics(),
+                                            physics: const ScrollPhysics(),
                                             itemCount: favlist.length,
                                             itemBuilder: (context, index) {
                                               final item = favlist[index];
@@ -153,7 +153,7 @@ class ProfileScreen extends StatelessWidget {
                                                   mwidth: mwidth, item: item);
                                             });
                                   } else {
-                                    return Center(
+                                    return const Center(
                                       child: CircularProgressIndicator(),
                                     );
                                   }
@@ -167,7 +167,7 @@ class ProfileScreen extends StatelessWidget {
               ]);
             }
           } else {
-            return Text('No data');
+            return const Text('No data');
           }
         });
   }

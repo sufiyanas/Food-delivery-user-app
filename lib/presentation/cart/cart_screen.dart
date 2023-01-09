@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
 import 'package:food_deliever_app/core/dbFunctions/order_function.dart';
 import 'package:food_deliever_app/infrasrructure/cart_modal.dart';
-import 'package:food_deliever_app/infrasrructure/food_modal.dart';
 import 'package:food_deliever_app/presentation/OrderService/conform_order_screen.dart';
 import 'package:food_deliever_app/presentation/cart/widget/place_order_row.dart';
 import 'package:food_deliever_app/presentation/cart/widget/product_tile.dart';

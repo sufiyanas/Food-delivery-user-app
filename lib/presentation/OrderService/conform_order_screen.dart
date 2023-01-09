@@ -10,8 +10,9 @@ import 'package:food_deliever_app/infrasrructure/cart_modal.dart';
 import 'package:food_deliever_app/presentation/cart/widget/place_order_row.dart';
 import 'package:food_deliever_app/presentation/widget/cutom_back_icon.dart';
 import 'package:food_deliever_app/presentation/widget/mateialbutton_cusamized.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-class ConformOrderScreen extends StatelessWidget {
+class ConformOrderScreen extends StatefulWidget {
   ConformOrderScreen(
       {super.key,
       required this.totoalCount,
@@ -22,6 +23,48 @@ class ConformOrderScreen extends StatelessWidget {
   final List<String> priceList;
   final List<CartModal> cartList;
   final String userAddress;
+
+  @override
+  State<ConformOrderScreen> createState() => _ConformOrderScreenState();
+}
+
+class _ConformOrderScreenState extends State<ConformOrderScreen> {
+  final _razorpay = Razorpay();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  var options = {
+    'key': 'rzp_test_mkzSidhb6RgmDG',
+    'amount': 1000,
+    'name': 'Gestapo Corp.',
+    'description': 'Demo',
+    'prefill': {
+      'contact': '8138845540',
+      'email': 'akmalmahmoodkinan@gmail.com'
+    },
+    'external': {
+      'wallets': ['paytm']
+    }
+  };
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    log("Sussses");
+    placeOrder();
+    // Navigator.pushReplacement(context, )
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    log("Failure");
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {}
+
   @override
   Widget build(BuildContext context) {
     final mwidth = MediaQuery.of(context).size.width;
@@ -29,7 +72,6 @@ class ConformOrderScreen extends StatelessWidget {
         body: SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const CustomBackIcon(),
           Text(
@@ -71,7 +113,7 @@ class ConformOrderScreen extends StatelessWidget {
                       SizedBox(
                         width: mwidth / 2,
                         child: Text(
-                          userAddress,
+                          widget.userAddress,
                           style: TextStyle(
                               fontFamily: fontBold,
                               fontSize: 15,
@@ -86,27 +128,29 @@ class ConformOrderScreen extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          PlaceOrderCard(
-              navigateFunction: () async {
-                final currentuserEmail =
-                    FirebaseAuth.instance.currentUser!.email;
-                //oder dummy
-                //placeOrder();
-              },
-              mwidth: mwidth,
-              totoalCount: totoalCount,
-              priceList: priceList),
+          Center(
+            child: PlaceOrderCard(
+                navigateFunction: () async {
+                  final currentuserEmail =
+                      FirebaseAuth.instance.currentUser!.email;
+                  _razorpay.open(options);
+                  // placeOrder();
+                },
+                mwidth: mwidth,
+                totoalCount: widget.totoalCount,
+                priceList: widget.priceList),
+          ),
+          khight20
         ],
       ),
     ));
   }
 
   //place order
-
   placeOrder() {
     final useremail = FirebaseAuth.instance.currentUser!.email;
-    for (var order in cartList) {
-      addToOrder(cartModal: order, userEmail: useremail!);
+    for (var order in widget.cartList) {
+      addOrdersToFirebase(cartModal: order, userEmail: useremail!);
       log('item added : ${order.dishname}');
     }
   }

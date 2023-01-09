@@ -3,11 +3,14 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
 import 'package:food_deliever_app/core/dbFunctions/home.dart';
+import 'package:food_deliever_app/core/dbFunctions/restarent_view.dart';
 import 'package:food_deliever_app/infrasrructure/food_modal.dart';
 import 'package:food_deliever_app/presentation/Home/viewmorepage/view_more.dart';
 import 'package:food_deliever_app/presentation/Home/widgets/custom_card.dart';
 import 'package:food_deliever_app/presentation/Home/widgets/listtilecard_widget.dart';
+import 'package:food_deliever_app/presentation/Home/widgets/textformfield_container.dart';
 import 'package:food_deliever_app/presentation/Notification/notification_screen.dart';
+import 'package:food_deliever_app/presentation/SearchScreen/search_screen.dart';
 import 'package:food_deliever_app/presentation/widget/custom_app_bar.dart';
 import 'package:food_deliever_app/presentation/widget/textformfield_widget.dart';
 
@@ -52,14 +55,43 @@ class HomeScreen extends StatelessWidget {
                       ),
                     )),
               ),
-              Textfieldwidget(
-                controller: searchController,
-                onchnaged: (p0) {},
-                labeltext: "What do you want to order?",
-                prefixicon: const Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 10),
+                      child: GestureDetector(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SearchScreen(),
+                              )),
+                          child: TextFormfireldContiner()),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SearchScreen(),
+                          ));
+                    },
+                    child: Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade800,
+                          borderRadius: BorderRadius.circular(16)),
+                      child: Icon(
+                        Icons.sort,
+                        size: 30,
+                        color: kthemeGreen,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               khight20,
               Expanded(
@@ -83,25 +115,38 @@ class HomeScreen extends StatelessWidget {
                   ),
                   // CustomCard(mwidth: mwidth)
 
-                  // SizedBox(
-                  //   height: mwidth / 2 + 30,
-                  //   width: double.infinity,
-                  //   child: StreamBuilder(
-                  //     stream: ,
-                  //     builder: (context) {
-                  //       return ListView.builder(
-                  //         itemCount: 10,
-                  //         shrinkWrap: true,
-                  //         physics: const ScrollPhysics(),
-                  //         scrollDirection: Axis.horizontal,
-                  //         itemBuilder: (context, index) => Padding(
-                  //           padding: const EdgeInsets.all(8.0),
-                  //           child: CustomCard(mwidth: mwidth),
-                  //         ),
-                  //       );
-                  //     }
-                  //   ),
-                  // ),
+                  SizedBox(
+                    height: mwidth / 2 + 30,
+                    width: double.infinity,
+                    child: FutureBuilder(
+                        future: getallRestaurent(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return Center(child: Text("something went wrong"));
+                          } else if (snapshot.hasData) {
+                            final restarentList = snapshot.data!;
+
+                            return (restarentList.isEmpty)
+                                ? Center(child: Text("something went wrong"))
+                                : ListView.builder(
+                                    itemCount: restarentList.length,
+                                    shrinkWrap: true,
+                                    physics: const ScrollPhysics(),
+                                    scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      final restarent = restarentList[index];
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: CustomCard(
+                                            mwidth: mwidth,
+                                            restarentEmail: restarent),
+                                      );
+                                    });
+                          } else {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                        }),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -127,7 +172,7 @@ class HomeScreen extends StatelessWidget {
                     stream: fetchFoood(CollectionName: "food"),
                     builder: (context, snapShot) {
                       // final users = snapShot.data!;
-                      log(snapShot.toString());
+                      // log(snapShot.toString());
 
                       if (snapShot.hasData) {
                         final userss = snapShot.data!;
@@ -160,10 +205,5 @@ class HomeScreen extends StatelessWidget {
       mwidth: mwidth,
       users: user,
     );
-  }
-
-//for hotal
-  Widget listCardHotal(FoodModal user) {
-    return CustomCard(mwidth: mwidth);
   }
 }
