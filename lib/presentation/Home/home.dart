@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:food_deliever_app/core/const.dart';
-import 'package:food_deliever_app/core/dbFunctions/home.dart';
 import 'package:food_deliever_app/core/dbFunctions/restarent_view.dart';
 import 'package:food_deliever_app/infrasrructure/food_modal.dart';
 import 'package:food_deliever_app/presentation/Home/viewmorepage/view_more.dart';
@@ -12,7 +11,6 @@ import 'package:food_deliever_app/presentation/Home/widgets/textformfield_contai
 import 'package:food_deliever_app/presentation/Notification/notification_screen.dart';
 import 'package:food_deliever_app/presentation/SearchScreen/search_screen.dart';
 import 'package:food_deliever_app/presentation/widget/custom_app_bar.dart';
-import 'package:food_deliever_app/presentation/widget/textformfield_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
@@ -97,22 +95,19 @@ class HomeScreen extends StatelessWidget {
               Expanded(
                 child: ListView(children: [
                   Image.asset("Asset/home/adone.png"),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Nearest Restarent",
+                        "Popular Restarent",
                         style: TextStyle(fontFamily: fontBold, fontSize: 20),
                       ),
                       TextButton(
-                          onPressed: () async {
-                            final gh = await setAllDocumentInsideCategories();
-                            log(gh.toString());
-                          },
+                          onPressed: () async {},
                           child: const Text("View More"))
                     ],
                   ),
+
                   // CustomCard(mwidth: mwidth)
 
                   SizedBox(
@@ -127,7 +122,7 @@ class HomeScreen extends StatelessWidget {
                             final restarentList = snapshot.data!;
 
                             return (restarentList.isEmpty)
-                                ? Center(child: Text("something went wrong"))
+                                ? Center(child: Text("List is empty"))
                                 : ListView.builder(
                                     itemCount: restarentList.length,
                                     shrinkWrap: true,
@@ -135,11 +130,14 @@ class HomeScreen extends StatelessWidget {
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index) {
                                       final restarent = restarentList[index];
+                                      log(restarent);
                                       return Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: CustomCard(
-                                            mwidth: mwidth,
-                                            restarentEmail: restarent),
+                                          mwidth: mwidth,
+                                          restarentEmail: restarent,
+                                          index: index,
+                                        ),
                                       );
                                     });
                           } else {
@@ -155,17 +153,18 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(fontFamily: fontBold, fontSize: 20),
                       ),
                       TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ViewMoreScreen(),
-                                ));
-                          },
-                          child: const Text(
-                            "View More",
-                            style: TextStyle(color: Colors.orange),
-                          ))
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ViewMoreScreen(),
+                              ));
+                        },
+                        child: const Text(
+                          "View More",
+                          style: TextStyle(color: Colors.orange),
+                        ),
+                      )
                     ],
                   ),
                   StreamBuilder<List<FoodModal>>(

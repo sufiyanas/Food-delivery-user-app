@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:food_deliever_app/core/dbFunctions/order_function.dart';
+
 import 'package:food_deliever_app/core/dbFunctions/order_history.dart';
-import 'package:food_deliever_app/infrasrructure/cart_modal.dart';
+
 import 'package:food_deliever_app/infrasrructure/order_modal.dart';
 import 'package:food_deliever_app/presentation/settings/widgets/custom_tile.dart';
 
@@ -14,7 +14,7 @@ class OnProssesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cureentUserEmail = FirebaseAuth.instance.currentUser!.email;
-    return Container(
+    return SizedBox(
       child: StreamBuilder(
           stream: getOrderStream(userEmail: cureentUserEmail!),
           builder: (context, snapshot) {
@@ -39,16 +39,20 @@ class OnProssesScreen extends StatelessWidget {
                 }
               }
 
-              return ListView.builder(
-                itemCount: onProssesList.length,
-                itemBuilder: (context, index) {
-                  return ListtileCardwidget(
-                    orderModal: onProssesList[index],
-                    mwidth: 100,
-                    ontap: () {},
-                  );
-                },
-              );
+              return (onProssesList.isEmpty)
+                  ? Center(
+                      child: Text("No Active order Founded"),
+                    )
+                  : ListView.builder(
+                      itemCount: onProssesList.length,
+                      itemBuilder: (context, index) {
+                        return ListtileCardwidget(
+                          orderModal: onProssesList[index],
+                          mwidth: 100,
+                          ontap: () {},
+                        );
+                      },
+                    );
             } else {
               return Center(child: CircularProgressIndicator());
             }

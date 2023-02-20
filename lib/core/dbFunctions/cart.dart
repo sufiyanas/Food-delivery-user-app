@@ -52,3 +52,19 @@ Future editCartCount({required CartModal cartModal}) async {
   //add to FB
   _doucumentReferance.update(cartEditedJson);
 }
+
+Future deleteCartCount({required CartModal cartModal}) async {
+  final email = FirebaseAuth.instance.currentUser!.email;
+
+  //doc Reference
+  final _doucumentReferance = FirebaseFirestore.instance
+      .collection("user")
+      .doc(email)
+      .collection("cart")
+      .doc(cartModal.dishname);
+
+  //json
+
+  //add to FB
+  _doucumentReferance.delete();
+}

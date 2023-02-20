@@ -8,8 +8,12 @@ class FoodModal {
   final String imageURL;
   final String count;
   final String hotalEmail;
+  final bool isveg;
+  final bool isAvailable;
 
   FoodModal({
+    required this.isAvailable,
+    required this.isveg,
     this.count = "1",
     required this.orginalPrice,
     required this.offerPrice,
@@ -30,10 +34,14 @@ class FoodModal {
         'OrginalPrice': orginalPrice,
         'OfferPrice': offerPrice,
         'imageURL': imageURL,
-        'restaurentEmail': hotalEmail
+        'restaurentEmail': hotalEmail,
+        "IsNonveg": isveg,
+        "isavailable": isAvailable
       };
 
   static FoodModal fromJson(Map<String, dynamic> json) => FoodModal(
+      isveg: json["IsNonveg"],
+      isAvailable: json["isavailable"],
       count: json["Count"],
       id: json["id"],
       dishname: json["DishName"],

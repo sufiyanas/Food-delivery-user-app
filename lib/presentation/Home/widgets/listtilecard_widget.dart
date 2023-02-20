@@ -4,7 +4,7 @@ import 'package:food_deliever_app/infrasrructure/food_modal.dart';
 import 'package:food_deliever_app/presentation/Detail%20Menu/detail_menu_screen.dart';
 
 class ListtileCard extends StatelessWidget {
-  const ListtileCard({
+  ListtileCard({
     Key? key,
     required this.mwidth,
     required this.users,
@@ -12,9 +12,13 @@ class ListtileCard extends StatelessWidget {
 
   final double mwidth;
   final FoodModal users;
+  bool isAvailable = false;
 
   @override
   Widget build(BuildContext context) {
+    if (users.isAvailable == true) {
+      isAvailable == true;
+    }
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -58,11 +62,21 @@ class ListtileCard extends StatelessWidget {
                     style: TextStyle(fontFamily: fontBold, fontSize: 17),
                   ),
                   khight5,
-                  Text(
-                    users.dishname,
-                    style: TextStyle(
-                        fontFamily: fontBook, fontSize: 17, color: Colors.grey),
-                  )
+                  (isAvailable)
+                      ? Text(
+                          "Available",
+                          style: TextStyle(
+                              fontFamily: fontBook,
+                              fontSize: 17,
+                              color: Colors.grey),
+                        )
+                      : Text(
+                          "Not available",
+                          style: TextStyle(
+                              fontFamily: fontBook,
+                              fontSize: 17,
+                              color: Colors.grey),
+                        )
                 ],
               ),
             ),
@@ -70,7 +84,7 @@ class ListtileCard extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 20),
               child: Text(
-                users.offerPrice,
+                "\$${users.orginalPrice}",
                 style: const TextStyle(color: Colors.orange, fontSize: 25),
               ),
             )

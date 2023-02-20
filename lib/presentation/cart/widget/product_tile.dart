@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:food_deliever_app/core/const.dart';
 import 'package:food_deliever_app/core/dbFunctions/cart.dart';
 import 'package:food_deliever_app/infrasrructure/cart_modal.dart';
@@ -22,48 +23,64 @@ class CartProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      height: 100,
-      decoration: BoxDecoration(
-        color: Colors.grey.shade800,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Row(
-        children: [
-          Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Container(
-                width: 100,
-                height: 70,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                          user.imageURL,
-                        ))),
-              )),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                user.dishname,
-                style: TextStyle(fontFamily: fontBold, fontSize: 17),
-              ),
-              Text(
-                "hotal_name",
-                style: const TextStyle(
-                  color: Colors.grey,
+    return Slidable(
+      endActionPane: ActionPane(motion: BehindMotion(), children: [
+        SlidableAction(
+          onPressed: (context) {
+            deleteCartCount(cartModal: user);
+          },
+          autoClose: true,
+          borderRadius: BorderRadius.horizontal(right: Radius.circular(20)),
+          foregroundColor: Colors.white,
+          padding: EdgeInsets.all(20),
+          backgroundColor: Colors.orange,
+          icon: Icons.delete,
+        )
+      ]),
+      child: Container(
+        margin: EdgeInsets.only(top: 10),
+        // margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        height: 100,
+        decoration: BoxDecoration(
+          color: Colors.grey.shade800,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Row(
+          children: [
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Container(
+                  width: 100,
+                  height: 70,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                            user.imageURL,
+                          ))),
+                )),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  user.dishname,
+                  style: TextStyle(fontFamily: fontBold, fontSize: 17),
                 ),
-              )
-            ],
-          ),
-          const Spacer(),
-          CustomItomCounter(dishName: user.dishname, cartModal: user),
-          kwidth10
-        ],
+                Text(
+                  user.dishname,
+                  style: const TextStyle(
+                    color: Colors.grey,
+                  ),
+                )
+              ],
+            ),
+            const Spacer(),
+            CustomItomCounter(dishName: user.dishname, cartModal: user),
+            kwidth10
+          ],
+        ),
       ),
     );
   }

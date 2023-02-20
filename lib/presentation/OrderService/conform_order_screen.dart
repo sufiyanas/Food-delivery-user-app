@@ -6,10 +6,13 @@ import 'package:food_deliever_app/core/const.dart';
 import 'package:food_deliever_app/core/dbFunctions/cart.dart';
 import 'package:food_deliever_app/core/dbFunctions/order_function.dart';
 import 'package:food_deliever_app/infrasrructure/cart_modal.dart';
+import 'package:food_deliever_app/main.dart';
+import 'package:food_deliever_app/presentation/Home/home.dart';
 
 import 'package:food_deliever_app/presentation/cart/widget/place_order_row.dart';
 import 'package:food_deliever_app/presentation/widget/cutom_back_icon.dart';
 import 'package:food_deliever_app/presentation/widget/mateialbutton_cusamized.dart';
+import 'package:food_deliever_app/presentation/widget/succes_notification_screen.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class ConformOrderScreen extends StatefulWidget {
@@ -41,21 +44,41 @@ class _ConformOrderScreenState extends State<ConformOrderScreen> {
 
   var options = {
     'key': 'rzp_test_mkzSidhb6RgmDG',
-    'amount': 1000,
-    'name': 'Gestapo Corp.',
+    'amount': 10000,
+    'name': 'Food Ninja',
     'description': 'Demo',
     'prefill': {
-      'contact': '8138845540',
-      'email': 'akmalmahmoodkinan@gmail.com'
+      'contact': '8156805226',
+      'email': 'mohammedSufiyanas123@gmail.com'
     },
     'external': {
       'wallets': ['paytm']
     }
   };
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     log("Sussses");
-    placeOrder();
+    await placeOrder();
+
+    for (var item in widget.cartList) {
+      await deleteCartCount(cartModal: item);
+    }
+
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (context) => SuccessNotificationScreen(
+                naviagtorFunction: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        // ignore: prefer_const_constructors
+                        builder: (context) => (Mainpage()),
+                      ));
+                },
+                buttontext: "Go to Home",
+                succesInformation: "Your order is placed")),
+        (route) => true);
     // Navigator.pushReplacement(context, )
   }
 

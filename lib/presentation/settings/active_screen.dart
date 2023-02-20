@@ -38,16 +38,20 @@ class ActiveScrreen extends StatelessWidget {
                 }
               }
 
-              return ListView.builder(
-                itemCount: activeList.length,
-                itemBuilder: (context, index) {
-                  return ListtileCardwidget(
-                    orderModal: activeList[index],
-                    mwidth: 100,
-                    ontap: () {},
-                  );
-                },
-              );
+              return (activeList.isEmpty)
+                  ? Center(
+                      child: Text("No Active order Founded"),
+                    )
+                  : ListView.builder(
+                      itemCount: activeList.length,
+                      itemBuilder: (context, index) {
+                        return ListtileCardwidget(
+                          orderModal: activeList[index],
+                          mwidth: 100,
+                          ontap: () {},
+                        );
+                      },
+                    );
             } else {
               return Center(child: CircularProgressIndicator());
             }

@@ -16,3 +16,22 @@ class BigTextWithBold extends StatelessWidget {
     );
   }
 }
+
+class BigTextWithnormal extends StatelessWidget {
+  const BigTextWithnormal(
+      {super.key,
+      required this.text,
+      this.fontsize = 20,
+      this.textDecoration = TextDecoration.none});
+  final String text;
+  final double fontsize;
+  final TextDecoration textDecoration;
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+          fontFamily: fontBook, fontSize: fontsize, decoration: textDecoration),
+    );
+  }
+}

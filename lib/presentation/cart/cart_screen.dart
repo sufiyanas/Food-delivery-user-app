@@ -50,17 +50,22 @@ class CartScreen extends StatelessWidget {
                     }
                     return Stack(
                       children: [
-                        SingleChildScrollView(
-                          child: Column(
-                            // physics: const ScrollPhysics(),
-                            // shrinkWrap: true,
-                            children: cartList
-                                .map(
-                                  (e) => listrilebuldcard(e),
-                                )
-                                .toList(),
-                          ),
-                        ),
+                        //  Column(
+                        //     // physics: const ScrollPhysics(),
+                        //     // shrinkWrap: true,
+                        //     children: cartList
+                        //         .map(
+                        //           (e) => listrilebuldcard(e),
+                        //         )
+                        //         .toList(),
+                        //
+                        ListView.builder(
+                            itemCount: cartList.length,
+                            itemBuilder: (context, index) => CartProductTile(
+                                  mwidth: mwidth,
+                                  user: cartList[index],
+                                )),
+
                         Positioned(
                           bottom: 10,
                           left: 10,
@@ -87,7 +92,7 @@ class CartScreen extends StatelessWidget {
                       ],
                     );
                   } else {
-                    return CircularProgressIndicator();
+                    return Center(child: CircularProgressIndicator());
                   }
                 },
               ),
@@ -95,15 +100,6 @@ class CartScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Widget listrilebuldcard(
-    CartModal user,
-  ) {
-    return CartProductTile(
-      mwidth: mwidthfortile,
-      user: user,
     );
   }
 }

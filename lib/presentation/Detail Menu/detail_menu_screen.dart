@@ -11,6 +11,7 @@ import 'package:food_deliever_app/infrasrructure/cart_modal.dart';
 import 'package:food_deliever_app/infrasrructure/food_modal.dart';
 import 'package:food_deliever_app/presentation/Home/widgets/custom_card.dart';
 import 'package:food_deliever_app/presentation/Profile/profile_screen.dart';
+import 'package:food_deliever_app/presentation/widget/bigtext.dart';
 import 'package:food_deliever_app/presentation/widget/mateialbutton_cusamized.dart';
 
 class DetailMenuScreen extends StatelessWidget {
@@ -201,43 +202,52 @@ class DetailMenuScreen extends StatelessWidget {
                         ),
                       ),
                       khight10,
-                      Row(
-                        children: [
-                          Text(
-                            "Popular Menu",
-                            style:
-                                TextStyle(fontFamily: fontBold, fontSize: 20),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        child: Text(
+                          "How to make a ${user.dishname}???",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            wordSpacing: 0.8,
+                            letterSpacing: 0.3,
+                            fontSize: 17,
+                            fontFamily: fontBook,
                           ),
-                          const Spacer(),
-                          TextButton(
-                              onPressed: () {},
-                              child: const Text(
-                                "View All",
-                              )),
-                        ],
+                        ),
                       ),
-                      // SizedBox(
-                      //   height: mwidth / 2 + 30,
-                      //   width: double.infinity,
-                      //   child: ListView.builder(
-                      //     itemCount: 10,
-                      //     shrinkWrap: true,
-                      //     physics: const ScrollPhysics(),
-                      //     scrollDirection: Axis.horizontal,
-                      //     itemBuilder: (context, index) => Padding(
-                      //       padding: const EdgeInsets.all(8.0),
-                      //       child: CustomCard(mwidth: mwidth),
-                      //     ),
-                      //   ),
-                      // ),
-                      // Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 10),
+                        child: Text(
+                          user.increadients,
+                          style: TextStyle(
+                            color: Colors.grey,
+                            wordSpacing: 0.8,
+                            letterSpacing: 0.3,
+                            fontSize: 17,
+                            fontFamily: fontBook,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: BigTextWithnormal(
+                            text: "Orginal price :\$${user.orginalPrice} ",
+                            fontsize: 25,
+                            textDecoration: TextDecoration.none),
+                      ),
+                      khight20,
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: BigTextWithnormal(
+                            text: "OfferPrice :\$${user.offerPrice} ",
+                            fontsize: 25,
+                            textDecoration: TextDecoration.none),
+                      ),
                       khight20,
                       CutomMaterialButton(
                           onpressed: () async {
-                            //  if (cartitem.isItemAddedInCart==true) {
-
-                            //   }
-                            // createUsermethod(user);
                             final CartModal cartitem = CartModal(
                               hotalEmail: user.hotalEmail,
                               dishname: user.dishname,
@@ -246,10 +256,7 @@ class DetailMenuScreen extends StatelessWidget {
                               offerPrice: user.offerPrice,
                               orginalPrice: user.orginalPrice,
                             );
-
                             await _refferancecolloction.set(cartitem.toJson());
-
-                            // log(respponse);
                             Utils.customSnackbar(
                                 context: context,
                                 text: "${user.dishname} Added to cart",

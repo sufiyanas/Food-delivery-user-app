@@ -4,6 +4,8 @@ import 'package:food_deliever_app/core/const.dart';
 import 'package:food_deliever_app/core/dbFunctions/favorate.dart';
 import 'package:food_deliever_app/infrasrructure/food_modal.dart';
 import 'package:food_deliever_app/infrasrructure/user_modal.dart';
+import 'package:food_deliever_app/presentation/Profile/widget/favorate_list_tile.dart';
+import 'package:food_deliever_app/presentation/Profile/widget/voucher_card.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -170,97 +172,5 @@ class ProfileScreen extends StatelessWidget {
             return const Text('No data');
           }
         });
-  }
-}
-
-class VoucherCard extends StatelessWidget {
-  const VoucherCard({
-    Key? key,
-    required this.mwidth,
-  }) : super(key: key);
-
-  final double mwidth;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      width: mwidth,
-      height: 70,
-      decoration: BoxDecoration(
-          color: Colors.grey.shade800, borderRadius: BorderRadius.circular(20)),
-      child: Row(
-        children: [
-          Image.asset(
-            "Asset/profile/Voucher Icon.png",
-            height: 150,
-            width: 100,
-          ),
-          Text("You have 3 voucher ",
-              style: TextStyle(fontFamily: fontBold, fontSize: 15)),
-        ],
-      ),
-    );
-  }
-}
-
-class FavorateList extends StatelessWidget {
-  const FavorateList({
-    Key? key,
-    required this.mwidth,
-    required this.item,
-  }) : super(key: key);
-
-  final double mwidth;
-  final FoodModal item;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(left: 10, right: 10, bottom: 20),
-      width: mwidth,
-      height: 100,
-      decoration: BoxDecoration(
-          color: Colors.grey.shade800, borderRadius: BorderRadius.circular(20)),
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Image.asset("Asset/profile/Photo Menu.png"),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("spacy fresh crab",
-                    style: TextStyle(fontFamily: fontBold, fontSize: 15)),
-                khight5,
-                const Text("Waroenk kita",
-                    style: TextStyle(color: Colors.grey, fontSize: 15)),
-                Text(
-                  "35",
-                  style: TextStyle(color: kthemeGreen, fontSize: 21),
-                )
-              ],
-            ),
-          ),
-          Container(
-            height: 40,
-            width: 100,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20), color: kthemeGreen),
-            child: Center(
-                child: Text(
-              "Buy Again",
-              style: TextStyle(
-                fontFamily: fontBold,
-              ),
-            )),
-          )
-        ],
-      ),
-    );
   }
 }
